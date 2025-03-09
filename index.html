@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Оценка номера</title>
+    <script>
+        async function calculatePrice() {
+            const number = document.getElementById("number").value.toUpperCase();
+            const response = await fetch("/calculate", {
+                method: "POST",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify({number})
+            });
+            const data = await response.json();
+            document.getElementById("result").innerText = `Стоимость номера: ${data.price} руб.`;
+        }
+    </script>
+</head>
+<body>
+    <h1>Оценка стоимости номера</h1>
+    <input type="text" id="number" placeholder="X000XX">
+    <button onclick="calculatePrice()">Рассчитать</button>
+    <p id="result"></p>
+</body>
+</html>
